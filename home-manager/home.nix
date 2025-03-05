@@ -19,11 +19,16 @@
 		kitty
 		wofi
 		bat
+		waybar
+		hyprpaper
+		hyprsunset
 		fzf
 		ripgrep
 		jq
 		tree
 		eza
+		dmidecode
+		tldr
 	];
 	
 	programs.neovim = {
