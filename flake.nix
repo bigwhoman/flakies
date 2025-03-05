@@ -4,6 +4,8 @@
  inputs = {
    # Nixpkgs
    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+   
+
 
    # Home manager
    home-manager.url = "github:nix-community/home-manager";
@@ -11,9 +13,12 @@
 
    # Hardware
    hardware.url = "github:nixos/nixos-hardware";
+   
+   # GUI
+   hyprland.url = "github:hyprwm/Hyprland";
  };
 
- outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+ outputs = { self, nixpkgs, home-manager, hyprland,... }@inputs: {
    # NixOS configuration entrypoint
    # Available through 'nixos-rebuild --flake .#your-hostname'
 
@@ -23,6 +28,8 @@
        # > Our main nixos configuration file <
        modules = [ 
          ./nixos/configuration.nix
+		 hyprland.nixosModules.default
+		 {programs.hyprland.enable = true;}
        ];
      };
    };
