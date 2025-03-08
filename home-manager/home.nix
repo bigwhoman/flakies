@@ -21,7 +21,9 @@
 		bat
 		waybar
 		hyprpaper
+		hyprshot
 		hyprsunset
+		wlogout
 		fzf
 		ripgrep
 		jq
@@ -29,6 +31,11 @@
 		eza
 		dmidecode
 		tldr
+		gpustat		
+		killall
+		swaylock-effects
+		discord
+		#edge
 	];
 	
 	programs.neovim = {
