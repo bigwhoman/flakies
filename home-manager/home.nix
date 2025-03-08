@@ -35,6 +35,7 @@
 		killall
 		swaylock-effects
 		discord
+		wl-clipboard
 		#edge
 	];
 	

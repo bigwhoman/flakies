@@ -38,6 +38,13 @@ in
   '';
    
 
+
+  fonts.packages = [
+           pkgs.nerd-fonts._0xproto
+           pkgs.nerd-fonts.droid-sans-mono
+	   pkgs.font-awesome
+         ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -64,6 +71,21 @@ in
   services.xserver.enable = true;
 
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd = {
+	  enable = true;
+	  qemu = {
+	    package = pkgs.qemu_kvm;
+	    runAsRoot = true;
+	    swtpm.enable = true;
+	    ovmf = {
+	      enable = true;
+	      packages = [(pkgs.OVMF.override {
+		secureBoot = true;
+		tpmSupport = true;
+	      }).fd];
+	    };
+	  };
+  };
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
