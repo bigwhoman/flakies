@@ -33,9 +33,14 @@
 		tldr
 		gpustat		
 		killall
+        lm_sensors
+		bluetui
 		swaylock-effects
 		discord
 		wl-clipboard
+		brightnessctl
+		wireplumber
+		rofi-wayland
 		#edge
 	];
 	

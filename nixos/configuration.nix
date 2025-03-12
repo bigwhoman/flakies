@@ -43,6 +43,7 @@ in
            pkgs.nerd-fonts._0xproto
            pkgs.nerd-fonts.droid-sans-mono
 	   pkgs.font-awesome
+	   pkgs.nerd-fonts.jetbrains-mono
          ];
 
   # Bootloader.
@@ -71,6 +72,7 @@ in
   services.xserver.enable = true;
 
   virtualisation.docker.enable = true;
+  programs.virt-manager.enable = true;
   virtualisation.libvirtd = {
 	  enable = true;
 	  qemu = {
@@ -134,7 +136,7 @@ in
     isNormalUser = true;
     description = "hooman";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd"];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
