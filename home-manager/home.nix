@@ -33,7 +33,7 @@
 		tldr
 		gpustat		
 		killall
-        lm_sensors
+		lm_sensors
 		bluetui
 		swaylock-effects
 		discord
@@ -41,8 +41,22 @@
 		brightnessctl
 		wireplumber
 		rofi-wayland
-		#edge
+		arduino-ide
+		arduino-cli
+		xfce.thunar
+		alsa-utils
+		pavucontrol
+		helvum
+		stdenv
+
+        (python3.withPackages(ps: with ps; [
+        pip
+        ipykernel
+        torch
+        torchvision
+        ]))
 	];
+	
 	
 	programs.neovim = {
 		enable = true;

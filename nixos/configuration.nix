@@ -1,12 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
+# Edit this configuration file to define what should be installed on your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
 
-let 
-	swapDevice = "/dev/sda3";
-in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -14,14 +11,24 @@ in
     ];
 
   
+  services.lvm = {
+    enable = false;
+  };
+
   swapDevices = [ {
         # replace this with your swap partition !!!!
-	device = swapDevice;
+	#device = swapDevice;
+	device = "/swapfile";
+	size = 100000;
   } ];  
   
+   boot.initrd.systemd.enable = true;
   # Add hibernation
-  boot.resumeDevice = swapDevice;
- 
+  #boot.resumeDevice = swapDevice;
+#   resumeDevice = "/dev/disk/by-uuid/98ffc29b-ec13-45ee-b619-a817d2d4e49c";
+#   boot.kernelParams = [
+#	"resume_offset=57593856"
+#   ];
 
   services.logind = {
 	lidSwitch = "hibernate";
@@ -36,7 +43,8 @@ in
   nix.extraOptions = ''
 	experimental-features = nix-command flakes
   '';
-   
+	
+
 
 
   fonts.packages = [
@@ -112,8 +120,19 @@ in
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+#  hardware.pulseaudio = {
+#    enable = true;
+#    package = pkgs.pulseaudioFull; # Full package includes more codecs and plugins
+#    # Try explicitly loading the module for your headset
+#    extraConfig = ''
+#      load-module module-alsa-card
+#    '';
+#  };
+
+
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  #hardware.pulseaudio.enable = false;
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -125,7 +144,6 @@ in
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -136,7 +154,7 @@ in
     isNormalUser = true;
     description = "hooman";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout"];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -163,7 +181,7 @@ in
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
       obs-backgroundremoval
-      obs-pipewire-audio-capture
+      #obs-pipewire-audio-capture
     ];
   };
   # Allow unfree packages
