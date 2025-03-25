@@ -29,6 +29,7 @@
 #   boot.kernelParams = [
 #	"resume_offset=57593856"
 #   ];
+  boot.kernelParams = [ "module_blacklist=i915" ];
 
   services.logind = {
 	lidSwitch = "hibernate";
@@ -100,16 +101,17 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
+  	powerManagement.enable = true;
 	modesetting.enable = true;
-	open = false;
+	open = true;
 	nvidiaSettings = true;
 	package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   };
   
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  #services.displayManager.sddm.enable = true;
+  #services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -156,7 +158,7 @@
     shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout"];
     packages = with pkgs; [
-      kdePackages.kate
+    #  kdePackages.kate
     #  thunderbird
     ];
   };

@@ -48,13 +48,13 @@
 		pavucontrol
 		helvum
 		stdenv
-
-        (python3.withPackages(ps: with ps; [
-        pip
-        ipykernel
-        torch
-        torchvision
-        ]))
+        lazygit
+        virtualbox
+        p7zip
+        unzip
+        zip
+        lshw
+        glxinfo
 	];
 	
 	
