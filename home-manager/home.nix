@@ -12,6 +12,7 @@
 		};
 	
 	};
+    services.ssh-agent.enable = true;
 	
 
 	programs.home-manager.enable = true;
@@ -56,6 +57,18 @@
         lshw
         glxinfo
 	];
+    programs.ssh = {
+        enable = true;
+        addKeysToAgent = "yes";
+        forwardAgent = true;
+        matchBlocks = {
+            "github.com" = {
+                hostname = "github.com";
+                user = "git";
+                identityFile = "~/.ssh/github_ed25519";
+            };
+        };
+    };  
 	
 	
 	programs.neovim = {
