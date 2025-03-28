@@ -56,6 +56,16 @@
         zip
         lshw
         glxinfo
+        gcc
+        gnumake
+        clang-tools
+        lldb
+        cpplint
+        fzf
+        isort
+        black
+        prettierd
+        stylua
 	];
     programs.ssh = {
         enable = true;
