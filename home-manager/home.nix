@@ -18,6 +18,7 @@
 	programs.home-manager.enable = true;
 	home.packages = with pkgs; [
 		kitty
+    wezterm
 		wofi
 		bat
 		waybar
@@ -49,23 +50,23 @@
 		pavucontrol
 		helvum
 		stdenv
-        lazygit
-        virtualbox
-        p7zip
-        unzip
-        zip
-        lshw
-        glxinfo
-        gcc
-        gnumake
-        clang-tools
-        lldb
-        cpplint
-        fzf
-        isort
-        black
-        prettierd
-        stylua
+    lazygit
+    virtualbox
+    p7zip
+    unzip
+    zip
+    lshw
+    glxinfo
+    gcc
+    gnumake
+    clang-tools
+    lldb
+    cpplint
+    fzf
+    isort
+    black
+    prettierd
+    stylua
 	];
     programs.ssh = {
         enable = true;
@@ -80,7 +81,15 @@
         };
     };  
 	
-	
+	programs.fish = {
+  enable = true;
+  shellInit = ''
+    # Start tmux automatically if not already in tmux
+    if status is-interactive; and not set -q TMUX
+      exec tmux
+    end
+  '';
+  };
 	programs.neovim = {
 		enable = true;
 		viAlias = true;
