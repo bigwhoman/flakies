@@ -67,6 +67,10 @@
     black
     prettierd
     stylua
+    ranger
+    tdf
+    microsoft-edge
+    evince
 	];
     programs.ssh = {
         enable = true;
@@ -87,6 +91,13 @@
     # Start tmux automatically if not already in tmux
     if status is-interactive; and not set -q TMUX
       exec tmux
+    end
+    # function fish_user_key_bindings
+    #   bind -M insert jk escape 
+    # end
+    function fish_user_key_bindings
+      fish_vi_key_bindings
+      bind -M insert -m default jk backward-char force-repaint
     end
   '';
   };
