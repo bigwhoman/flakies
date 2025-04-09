@@ -29,7 +29,7 @@
 #   boot.kernelParams = [
 #	"resume_offset=57593856"
 #   ];
-  boot.kernelParams = [ "module_blacklist=i915" ];
+  boot.kernelParams = [ "module_blacklist=i915" "acpi_backlight=video"  ];
 
   services.logind = {
 	lidSwitch = "hibernate";
