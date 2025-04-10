@@ -83,6 +83,11 @@
                 user = "git";
                 identityFile = "~/.ssh/github_ed25519";
             };
+            "os161" = {
+                hostname = "192.168.122.199";
+                user = "hooman";
+                identityFile = "~/.ssh/os161.pub";
+            };
         };
     };  
 	

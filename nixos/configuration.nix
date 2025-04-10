@@ -29,7 +29,7 @@
 #   boot.kernelParams = [
 #	"resume_offset=57593856"
 #   ];
-  boot.kernelParams = [ "module_blacklist=i915" "acpi_backlight=video"  ];
+  boot.kernelParams = [ "module_blacklist=i915" "acpi_backlight=video" "video.only_lcd=0" "i2c-dev"];
 
   services.logind = {
 	lidSwitch = "hibernate";
@@ -79,7 +79,14 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
+# In /etc/nixos/configuration.nix
+  services.udev.extraRules = ''
+# Give i2c group members access to i2c devices
+	  KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+	  '';
 
+# Create i2c group and add your user to it
+  users.groups.i2c = {};
   virtualisation.docker.enable = true;
   programs.virt-manager.enable = true;
   virtualisation.libvirtd = {
@@ -108,6 +115,7 @@
 	package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   };
+  hardware.i2c.enable = true;
   
   # Enable the KDE Plasma Desktop Environment.
   #services.displayManager.sddm.enable = true;
@@ -156,7 +164,7 @@
     isNormalUser = true;
     description = "hooman";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout"];
+    extraGroups = [ "i2c" "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout"];
     packages = with pkgs; [
     #  kdePackages.kate
     #  thunderbird
@@ -204,6 +212,7 @@
     stow
     libsForQt5.powerdevil
     vscode
+    ddcutil
     git
     (python3.withPackages(ps: with ps; [
 
