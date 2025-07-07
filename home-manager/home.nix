@@ -31,6 +31,7 @@
 		jq
 		tree
 		eza
+    todoist
 		dmidecode
 		tldr
 		gpustat		
@@ -39,8 +40,8 @@
 		bluetui
 		swaylock-effects
 		discord
-		wl-clipboard
 		brightnessctl
+    cliphist
 		wireplumber
 		rofi-wayland
 		arduino-ide
@@ -72,6 +73,7 @@
     microsoft-edge
     evince
     obsidian
+    sshfs
 	];
     programs.ssh = {
         enable = true;
@@ -95,13 +97,13 @@
   enable = true;
   shellInit = ''
     # Start tmux automatically if not already in tmux
-    if status is-interactive; and not set -q TMUX
-      exec tmux
-    end
-    function fish_user_key_bindings
-    fish_vi_key_bindings
-    bind -M insert -m default jk backward-char force-repaint
-    end 
+     if status is-interactive; and not set -q TMUX
+       exec tmux
+     end
+     function fish_user_key_bindings
+     fish_vi_key_bindings
+     bind -M insert -m default jk backward-char force-repaint
+     end 
   '';
   };
 	programs.neovim = {

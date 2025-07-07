@@ -37,6 +37,7 @@ in pkgs.mkShell rec {
     libxml2
     libxslt
     libzip
+    libstdcxx5
     zlib
 
   ];
