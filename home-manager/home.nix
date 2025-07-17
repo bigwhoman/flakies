@@ -30,6 +30,13 @@
 		ripgrep
 		jq
 		tree
+    ninja
+    cmake
+    lld
+    ninja-build
+    wabt
+    libstdc++-12-dev
+    g++
 		eza
     todoist
 		dmidecode

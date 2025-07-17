@@ -21,7 +21,13 @@
 	device = "/swapfile";
 	size = 100000;
   } ];  
-  
+
+
+   boot.supportedFilesystems = ["exfat"];
+   services.udisks2.enable = true;
+
+
+
    boot.initrd.systemd.enable = true;
   # Add hibernation
   #boot.resumeDevice = swapDevice;
@@ -210,6 +216,8 @@
     gparted
     brave   
     stow
+    exfat
+    exfatprogs
     libsForQt5.powerdevil
     vscode
     ddcutil
@@ -256,6 +264,14 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
+  services.openssh = {
+  	enable = true;
+	settings = {
+		PasswordAuthentication = true;
+	};
+  };
+
+  networking.firewall.allowedTCPPorts = [ 22 ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
