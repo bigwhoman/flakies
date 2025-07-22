@@ -5,7 +5,7 @@
    # Nixpkgs
    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
    
-
+   vscode-server.url = "github:nix-community/nixos-vscode-server";
 
    # Home manager
    home-manager.url = "github:nix-community/home-manager";
@@ -18,7 +18,7 @@
    hyprland.url = "github:hyprwm/Hyprland";
  };
 
- outputs = { self, nixpkgs, home-manager, hyprland,... }@inputs: {
+ outputs = { self, nixpkgs, home-manager, hyprland, vscode-server, ... }@inputs: {
    # NixOS configuration entrypoint
    # Available through 'nixos-rebuild --flake .#your-hostname'
 
@@ -26,10 +26,15 @@
     bigwhoman = nixpkgs.lib.nixosSystem {
        specialArgs = { inherit inputs; }; # Pass flake inputs to our config
        # > Our main nixos configuration file <
-       modules = [ 
+         modules = [ 
          ./nixos/configuration.nix
-		 hyprland.nixosModules.default
-		 {programs.hyprland.enable = true;}
+         hyprland.nixosModules.default
+         {programs.hyprland.enable = true;}
+
+       vscode-server.nixosModules.default
+         ({ config, pkgs, ... }: {
+          services.vscode-server.enable = true;
+          })
        ];
      };
    };

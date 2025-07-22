@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./hardware-configuration.nix 
     ];
 
   
@@ -82,6 +82,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
+  programs.nix-ld.enable = true;
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
@@ -145,7 +146,6 @@
 #    '';
 #  };
 
-
   # Enable sound with pipewire.
   #hardware.pulseaudio.enable = false;
 
@@ -170,7 +170,10 @@
     isNormalUser = true;
     description = "hooman";
     shell = pkgs.fish;
-    extraGroups = [ "i2c" "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout"];
+    extraGroups = [ "vscode-server" "i2c" "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout"];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICs9+7homZ6YB8UhpfvQ80yLr5zD8Z6KlEQ3RXRKETCW bigwhoman@arch" 
+    ];
     packages = with pkgs; [
     #  kdePackages.kate
     #  thunderbird
@@ -267,7 +270,9 @@
   services.openssh = {
   	enable = true;
 	settings = {
-		PasswordAuthentication = true;
+		PasswordAuthentication = false;
+		X11Forwarding = true;
+		AllowUsers = [ "bigwhoman" ];
 	};
   };
 

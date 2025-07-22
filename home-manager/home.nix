@@ -30,13 +30,8 @@
 		ripgrep
 		jq
 		tree
-    ninja
     cmake
-    lld
-    ninja-build
     wabt
-    libstdc++-12-dev
-    g++
 		eza
     todoist
 		dmidecode
@@ -95,8 +90,15 @@
             "os161" = {
                 hostname = "192.168.122.199";
                 user = "hooman";
-                identityFile = "~/.ssh/os161.pub";
+                identityFile = "~/.ssh/os161";
             };
+            "debian" = {
+              hostname = "192.168.122.223";
+              user = "bigwhoman";
+              identityFile = "~/.ssh/debian";
+              identitiesOnly = true;
+            };
+
         };
     };  
 	
