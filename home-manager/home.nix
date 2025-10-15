@@ -47,6 +47,8 @@
 		wireplumber
 		rofi-wayland
 		arduino-ide
+    hdparm
+    usbutils
 		arduino-cli
 		xfce.thunar
 		alsa-utils
@@ -70,7 +72,9 @@
     black
     prettierd
     stylua
+    zotero
     ranger
+    gnome-pomodoro
     tdf
     microsoft-edge
     evince

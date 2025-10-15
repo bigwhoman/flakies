@@ -170,7 +170,7 @@
     isNormalUser = true;
     description = "hooman";
     shell = pkgs.fish;
-    extraGroups = [ "vscode-server" "i2c" "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout"];
+    extraGroups = [ "vscode-server" "i2c" "networkmanager" "wheel" "docker" "libvirtd" "audio" "dialout" "plugdev"];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICs9+7homZ6YB8UhpfvQ80yLr5zD8Z6KlEQ3RXRKETCW bigwhoman@arch" 
     ];
@@ -205,6 +205,7 @@
   };
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  services.usbmuxd.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -213,6 +214,10 @@
     wget
     neofetch
     pciutils
+    libimobiledevice
+    ifuse
+    ideviceinstaller
+    libplist 
     btop
     fish
     tmux
