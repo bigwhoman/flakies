@@ -19,6 +19,8 @@
 	home.packages = with pkgs; [
 		kitty
     wezterm
+    rustup
+    playerctl
 		wofi
 		bat
 		waybar
@@ -30,11 +32,14 @@
 		ripgrep
 		jq
 		tree
+    vlc
     cmake
     wabt
 		eza
     todoist
 		dmidecode
+    zathura
+    texliveFull
 		tldr
 		gpustat		
 		killall
@@ -101,6 +106,13 @@
               user = "bigwhoman";
               identityFile = "~/.ssh/debian";
               identitiesOnly = true;
+            };
+            "CSLab" = {
+              hostname = "mlsys-02.syslab.sandbox";
+              user = "keshvari";
+              identityFile = "~/.ssh/CS";
+              identitiesOnly = true;
+              proxyJump = "debian";
             };
 
         };

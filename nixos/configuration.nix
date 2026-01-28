@@ -72,10 +72,19 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
+services.xl2tpd.enable = true;
+services.strongswan = {
+    enable = true;
+    secrets = [];
+  };
   # Enable networking
-  networking.networkmanager.enable = true;
-
+	networking.networkmanager = {
+	    enable = true;
+	    enableStrongSwan = true;
+	    plugins = with pkgs; [
+	      networkmanager-l2tp
+	    ];
+	  };
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
@@ -177,6 +186,8 @@
     packages = with pkgs; [
     #  kdePackages.kate
     #  thunderbird
+    networkmanager-l2tp
+    strongswan
     ];
   };
 
