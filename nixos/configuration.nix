@@ -267,6 +267,7 @@ services.strongswan = {
         };
     };
   };
+  programs.kdeconnect.enable = true;
   
 
 
