@@ -25,6 +25,9 @@
       wofi
       spotify
       bat
+      openssl
+      curl.dev
+      pkg-config
       waybar
       hyprpaper
       hyprshot
