@@ -27,7 +27,6 @@
    services.udisks2.enable = true;
 
 
-
    boot.initrd.systemd.enable = true;
   # Add hibernation
   #boot.resumeDevice = swapDevice;
@@ -37,14 +36,15 @@
 #   ];
   boot.kernelParams = [ "module_blacklist=i915" "acpi_backlight=video" "video.only_lcd=0" "i2c-dev"];
 
-  services.logind = {
-	lidSwitch = "hibernate";
-	extraConfig = ''
-		HandlePowerKey=hibernate
-		IdleAction=hibernate
-		IdleActionSec=30min
-	'';
-  }; 
+   
+   services.logind = {
+  lidSwitch = "hibernate";
+  settings.Login = {
+    HandlePowerKey = "hibernate";
+    IdleAction = "hibernate";
+    IdleActionSec = "30min";
+  };
+};
  
   nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = ''
@@ -77,14 +77,14 @@ services.strongswan = {
     enable = true;
     secrets = [];
   };
-  # Enable networking
-	networking.networkmanager = {
-	    enable = true;
-	    enableStrongSwan = true;
-	    plugins = with pkgs; [
-	      networkmanager-l2tp
-	    ];
-	  };
+  
+  networking.networkmanager = {
+  enable = true;
+  plugins = with pkgs; [
+    networkmanager-l2tp
+    networkmanager-strongswan
+  ];
+};
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
@@ -105,22 +105,16 @@ services.strongswan = {
   users.groups.i2c = {};
   virtualisation.docker.enable = true;
   programs.virt-manager.enable = true;
+  
   virtualisation.libvirtd = {
-	  enable = true;
-	  qemu = {
-	    package = pkgs.qemu_kvm;
-	    runAsRoot = true;
-	    swtpm.enable = true;
-	    ovmf = {
-	      enable = true;
-	      packages = [(pkgs.OVMF.override {
-		secureBoot = true;
-		tpmSupport = true;
-	      }).fd];
-	    };
-	  };
+  enable = true;
+  qemu = {
+    package = pkgs.qemu_kvm;
+    runAsRoot = true;
+    swtpm.enable = true;
+    # ovmf block deleted entirely
   };
-
+};
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
@@ -130,6 +124,10 @@ services.strongswan = {
 	nvidiaSettings = true;
 	package = config.boot.kernelPackages.nvidiaPackages.stable;
 
+  };
+  hardware.graphics = {
+  enable = true;
+  enable32Bit = true;
   };
   hardware.i2c.enable = true;
   
@@ -157,6 +155,7 @@ services.strongswan = {
 
   # Enable sound with pipewire.
   #hardware.pulseaudio.enable = false;
+
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -223,7 +222,6 @@ services.strongswan = {
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    neofetch
     pciutils
     libimobiledevice
     ifuse
@@ -233,11 +231,12 @@ services.strongswan = {
     fish
     tmux
     gparted
+    mako
     brave   
     stow
     exfat
     exfatprogs
-    libsForQt5.powerdevil
+    kdePackages.powerdevil
     vscode
     ddcutil
     git
@@ -256,7 +255,6 @@ services.strongswan = {
      ]))
     telegram-desktop
   ];
-
 
  programs.git = {
     enable = true;

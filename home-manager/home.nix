@@ -19,8 +19,10 @@
   home.packages = with pkgs; [
     kitty
       wezterm
+      claude-code
       rustup
       signal-desktop
+      gemini-cli
       playerctl
       wofi
       spotify
@@ -55,7 +57,7 @@
       brightnessctl
       cliphist
       wireplumber
-      rofi-wayland
+      rofi
       arduino-ide
       hdparm
       usbutils
@@ -63,7 +65,6 @@
       xfce.thunar
       alsa-utils
       pavucontrol
-      helvum
       stdenv
       lazygit
       virtualbox
@@ -71,7 +72,7 @@
       unzip
       zip
       lshw
-      glxinfo
+
       gcc
       gnumake
       clang-tools
@@ -144,6 +145,7 @@
 
   home.sessionVariables = {
     EDITOR="nvim";
+     __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
   };
 
   home.shellAliases = {
