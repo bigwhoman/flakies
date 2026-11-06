@@ -19,7 +19,6 @@
   home.packages = with pkgs; [
     kitty
       wezterm
-      claude-code
       rustup
       signal-desktop
       gemini-cli
@@ -34,7 +33,9 @@
       hyprpaper
       hyprshot
       hyprsunset
+      hyprlock
       wlogout
+      sysstat
       fzf
       ripgrep
       jq
@@ -74,6 +75,8 @@
       lshw
 
       gcc
+      tree-sitter
+      wl-clipboard
       gnumake
       clang-tools
       lldb
@@ -83,7 +86,7 @@
       black
       prettierd
       stylua
-      zotero
+      # zotero  # 10.0.4 fails to build on current nixpkgs; re-enable after the next flake update
       ranger
       gnome-pomodoro
       tdf
@@ -141,6 +144,14 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    # yq-go: papis.nvim converts papis info.yaml files to JSON with it.
+    extraPackages = [pkgs.tree-sitter pkgs.yq-go];
+    # init.lua is stowed from ~/dotfiles; load HM's generated lua via the wrapper instead.
+    sideloadInitLua = true;
+    # sqlite.lua (papis.nvim dep) can't find libsqlite3 on NixOS without this.
+    initLua = ''
+      vim.g.sqlite_clib_path = "${pkgs.sqlite.out}/lib/libsqlite3.so"
+    '';
   };
 
   home.sessionVariables = {

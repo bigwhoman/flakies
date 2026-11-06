@@ -91,7 +91,6 @@ services.strongswan = {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  programs.nix-ld.enable = true;
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
@@ -155,6 +154,16 @@ services.strongswan = {
 
   # Enable sound with pipewire.
   #hardware.pulseaudio.enable = false;
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+# most prebuilt binaries need these
+	  stdenv.cc.cc
+	  zlib
+	  openssl
+	  curl
+# add more as things complain
+  ];
 
 
   security.rtkit.enable = true;
