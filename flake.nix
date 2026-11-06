@@ -22,19 +22,14 @@
    # NixOS configuration entrypoint
    # Available through 'nixos-rebuild --flake .#your-hostname'
 
+   # One entry per machine; each machine's folder lives in ./hosts/<name>.
    nixosConfigurations = {
-    bigwhoman = nixpkgs.lib.nixosSystem {
+     bigwhoman = nixpkgs.lib.nixosSystem {
        specialArgs = { inherit inputs; }; # Pass flake inputs to our config
-       # > Our main nixos configuration file <
-         modules = [ 
-         ./nixos/configuration.nix
+       modules = [
+         ./hosts/bigwhoman
          hyprland.nixosModules.default
-         {programs.hyprland.enable = true;}
-
-       vscode-server.nixosModules.default
-         ({ config, pkgs, ... }: {
-          services.vscode-server.enable = true;
-          })
+         vscode-server.nixosModules.default
        ];
      };
    };
@@ -42,14 +37,13 @@
    # home-manager configuration entrypoint
    # Available through 'home-manager --flake .#your-username@your-hostname'
    homeConfigurations = {
-     # FIXME replace with your username@hostname
      "bigwhoman@nixos" = home-manager.lib.homeManagerConfiguration {
        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-       # > Our main home-manager configuration file <
-       modules = [ 
-           ./home-manager/home.nix 
-           ];
+       modules = [
+         ./home-manager/home.nix
+         ./hosts/bigwhoman/home.nix
+       ];
      };
    };
  };
